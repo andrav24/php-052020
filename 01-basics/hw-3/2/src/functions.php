@@ -5,11 +5,7 @@ require_once 'config.php';
 
 function checkOrder(array $order)
 {
-    $res = true;
-    if (!isset($order['email']) || empty($order['email'])) {
-        $res = false;
-    }
-    return $res;
+    return !empty($order['email']);
 }
 
 function getClientByEmail(PDO $pdo, string $email)
