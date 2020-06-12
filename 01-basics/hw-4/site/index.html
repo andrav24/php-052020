@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="order.php" method="post">
+        <p><label>Выберите тариф:</label>
+        <select size="1" name="tariff">
+            <option value="basic" selected>Базовый</option>
+            <option value="hourly">Почасовой</option>
+            <option value="student">Студенческий</option>
+        </select></p>
+        <fieldset style="display: inline-block">
+            <legend>Доп.услуги:</legend>
+            <div>
+                <input type="checkbox" id="service-gps" name="service-gps" value="true">
+                <label for="service-gps">Gps в салон - 15 руб/час, минимум 1 час.</label>
+            </div>
+            <div>
+                <input type="checkbox" id="service-driver" name="service-driver" value="true">
+                <label for="service-driver">Водитель - 100 рублей единоразово.</label>
+            </div>
+        </fieldset>
+        <p></p>
+        <fieldset style="display: inline-block">
+            <legend>Параметры поездки:</legend>
+            <div>
+                <input type="text" id="distance" name="distance" maxlength="4" value="0">
+                <label for="distance">Расстояние, км.</label>
+            </div>
+            <p></p>
+            <div>
+                <input type="text" id="duration" name="duration" maxlength="4" value="0">
+                <label for="duration">Продолжительность, мин.</label>
+            </div>
+        </fieldset>
+        <p><input type="submit" value="Отправить">
+    </form>
+</body>
+</html>
