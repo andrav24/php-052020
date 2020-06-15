@@ -2,12 +2,13 @@
 
 namespace App\Controllers;
 
+
 use Core\Controller;
 
-class HomeController extends Controller
+class BlogController extends Controller
 {
-
     public function indexAction()
     {
+
     }
 }

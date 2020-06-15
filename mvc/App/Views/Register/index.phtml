@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<h1>Registration</h1><br>
+<form action="register/reg" method="post">
+    <table>
+        <tr>
+            <td>
+                Name:
+            </td>
+            <td>
+                <input type='text'  name='name' value="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Email Address:
+            </td>
+            <td>
+                <input type='mail'  name='email' value="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input type='password' name='password' value="">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Repeat Password:
+            </td>
+            <td>
+                <input type='password' name='password2' value=""">
+            </td>
+        </tr>
+    </table>
+    <br>
+    <input type="submit" value="Register">
+</form>
+
+<div id="result">
+
+</div>
+
+</body>
+</html>
+
+<?php
+if(isset($_SESSION['regErr'])):
+    $msg = $_SESSION['regErr'];
+    unset($_SESSION['regErr']);
+    echo "<br><br>" . $msg;
+endif;
+?>

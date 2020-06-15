@@ -4,37 +4,21 @@ namespace Core;
 
 class Router
 {
+    private array $route = [];
 
-    public function __construct()
+    public function dispatch(string $routeURI): void
     {
-
-    }
-
-    public function addRoute(string $route, array $params = [])
-    {
-
-    }
-
-    public function dispatch(string $routeURI): string
-    {
-
         $parts = explode('/', $routeURI);
-        $controllerName = $parts[1] ?? '';
-        $actionName = $parts[2] ?? '';
+        $this->route['controller'] = $parts[1] ?? '';
+        $this->route['action'] = $parts[2] ?? '';
+    }
 
-        if (!$controllerName || !$this->check($controllerName)) {
-            $this->_controllerName = self::DEFAULT_CONTROLLER;
-        } else {
-            $this->_controllerName = ucfirst(strtolower($controllerName));
-        }
-
-        if (!$actionName || !$this->check($actionName)) {
-            $this->_actionToken = self::DEFAULT_ACTION;
-        } else {
-            $this->_actionToken = strtolower($actionName);
-        }
-
-        return '';
+    /**
+     * @return array
+     */
+    public function getRoute(): array
+    {
+        return $this->route;
     }
 
     private function check(string $key)
