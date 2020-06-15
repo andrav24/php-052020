@@ -2,12 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Models\Post;
+
 class AdminController
 {
 
-    public function indexAction()
+    public function deleteMessageAction()
     {
-        echo get_class($this);
+        $postId = (int) $_GET['id'];
+        Post::deletePost($postId);
+        header('Location: /blog');
     }
 
 }

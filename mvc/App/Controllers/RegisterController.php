@@ -34,6 +34,8 @@ class RegisterController extends Controller
             $user->loadData($data, true);
             $user->save($data);
             $_SESSION['auth'] = true;
+            $_SESSION['id'] = $user->getId();
+            $_SESSION['admin'] = in_array($user->getId(), ADMIN_IDS);
             header('Location: /blog');
         } else {
             $user->loadData($data);

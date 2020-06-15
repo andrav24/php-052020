@@ -39,13 +39,9 @@ class Application
         $tpl = "../App/Views/" . $controllerManager->getControllerViewName()
             . "/" . $controllerManager->getActionViewName() . ".phtml";
 
-        /*var_dump(new \Core\View());
-        echo get_class($controllerObj);
-        die;*/
 
         $controllerObj->view = new \Core\View();
         $controllerObj->$controllerAction();
-        //$controllerObj->view->render($tpl);
         if ($controllerObj->needRender()) {
             $html = $controllerObj->view->render($tpl);
             echo $html;

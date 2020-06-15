@@ -1,5 +1,5 @@
 <?php
-namespace App\Model;
+namespace App\Models;
 
 use Core\Application;
 
@@ -21,10 +21,10 @@ class Post
         $this->image = $data['image'] ?? '';
     }
 
-    public static function deleteMessage(int $messageId)
+    public static function deletePost(int $postId)
     {
         $db = Application::getInstance()->getDb();
-        $query = "DELETE FROM posts WHERE id = $messageId";
+        $query = "DELETE FROM posts WHERE id = $postId";
         return $db->exec($query);
     }
 
@@ -32,7 +32,14 @@ class Post
     {
         $db = Application::getInstance()->getDb();
         $res = $db->exec(
-            'INSERT INTO messages (text, created_at, author_id, image) VALUES (:text, :created_at,:author_id,:image)');
+            'INSERT INTO posts (text, created_at, author_id, image) VALUES (:text, :created_at,:author_id,:image)',
+            [
+                ':text' => $this->text,
+                ':created_at' => $this->createdAt,
+                ':author_id' => $this->authorId,
+                ':image' => $this->image,
+            ]
+        );
 
         return $res;
     }
@@ -41,7 +48,7 @@ class Post
     {
         $db = Application::getInstance()->getDb();
         $data = $db->fetchAll(
-            "SELECT * fROM messages LIMIT $limit OFFSET $offset");
+            "SELECT * fROM posts LIMIT $limit OFFSET $offset");
         if (!$data) {
             return [];
         }
@@ -60,7 +67,7 @@ class Post
     {
         $db = Application::getInstance()->getDb();
         $data = $db->fetchAll(
-            "SELECT * fROM messages WHERE author_id = $userId LIMIT $limit");
+            "SELECT * fROM posts WHERE author_id = $userId LIMIT $limit");
         if (!$data) {
             return [];
         }
@@ -73,6 +80,19 @@ class Post
         }
 
         return $messages;
+    }
+
+    public function loadFile(string $file)
+    {
+        if (file_exists($file)) {
+            $this->image = $this->genFileName();
+            move_uploaded_file($file,getcwd() . '/images/' . $this->image);
+        }
+    }
+
+    private function genFileName()
+    {
+        return sha1(microtime(1) . mt_rand(1, 100000000)) . '.png';
     }
 
     /**
@@ -121,19 +141,6 @@ class Post
     public function setAuthor(User $author): void
     {
         $this->author = $author;
-    }
-
-    public function loadFile(string $file)
-    {
-        if (file_exists($file)) {
-            $this->image = $this->genFileName();
-            move_uploaded_file($file,getcwd() . '/images/' . $this->image);
-        }
-    }
-
-    private function genFileName()
-    {
-        return sha1(microtime(1) . mt_rand(1, 100000000)) . '.jpg';
     }
 
     /**

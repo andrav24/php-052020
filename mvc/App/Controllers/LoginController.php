@@ -26,6 +26,8 @@ class LoginController extends Controller
         $res = $user->getByEmailAndPassword($data['email'], $data['password']);
         if ($res) {
             $_SESSION['auth'] = true;
+            $_SESSION['id'] = $user->getId();
+            $_SESSION['admin'] = in_array($user->getId(), ADMIN_IDS);
             header('Location: /blog');
         } else {
             header('Location: /register');

@@ -59,6 +59,25 @@ class User
         return false;
     }
 
+    public static function getByIds(array $userIds)
+    {
+        $db = Application::getInstance()->getDb();
+        $idsString = implode(',', $userIds);
+        $data = $db->fetchAll(
+            "SELECT * fROM users WHERE id IN($idsString)");
+        if (!$data) {
+            return [];
+        }
+
+        $users = [];
+        foreach ($data as $elem) {
+            $user = new self($elem);
+            $user->id = $elem['id'];
+            $users[$user->id] = $user;
+        }
+        return $users;
+    }
+
     /**
      * @return int
      */
