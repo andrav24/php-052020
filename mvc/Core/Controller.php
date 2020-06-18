@@ -4,7 +4,7 @@ namespace Core;
 
 class Controller
 {
-    public View $view;
+    public $view;
 
     protected bool $_render = true;
 
