@@ -15,6 +15,7 @@
 .idea/**/shelf
 
 vendor/
+config/
 
 # Generated files
 .idea/**/contentModel.xml
