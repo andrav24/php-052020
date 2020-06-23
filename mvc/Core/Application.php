@@ -36,11 +36,16 @@ class Application
         /** @var Controller $controllerObj */
         $controllerObj = new $controllerName();
 
-        $tpl = "../App/Views/" . $controllerManager->getControllerViewName()
-            . "/" . $controllerManager->getActionViewName() . ".phtml";
+        if ($controllerName == '\App\Controllers\BlogController') {
+            $tpl = $controllerManager->getControllerViewName()
+                . "/" . $controllerManager->getActionViewName() . ".twig";
+            $controllerObj->view = new \Core\ViewTwig();
+        } else {
+            $tpl = "../App/Views/" . $controllerManager->getControllerViewName()
+                . "/" . $controllerManager->getActionViewName() . ".phtml";
+            $controllerObj->view = new \Core\View();
+        }
 
-
-        $controllerObj->view = new \Core\View();
         $controllerObj->$controllerAction();
         if ($controllerObj->needRender()) {
             $html = $controllerObj->view->render($tpl);
